@@ -7,5 +7,9 @@ body{
     box-sizing: border-box;
     margin-left: 15%;
     margin-right: 15%;
+   padding-left: 1em; 
+   padding-right: 1em;
+}
+#display{
     
 }

@@ -14,7 +14,8 @@ window.onload = function () {
 
 function main():void{
     if (isValid()){
-        let item = getToDoItem()
+        let item = getToDoItem();
+        displayToDoItem(item);
     }
 }
 
@@ -22,13 +23,13 @@ function main():void{
  * Check form data is valid
  */
 function isValid(): boolean {
-    let valid = true;
-    if (!isNaN(this.title)){
-        valid = false;
-    }
-    if (this.dueDate)
+    //let valid = true;
+    //if (!isNaN(this.title)){
+    //    valid = false;
+    //}
+    //if (this.dueDate)
 
-    return valid;
+    return true;
 }
 
 /**
@@ -58,5 +59,21 @@ function getToDoItem():ToDoItem{
  * @param item Display given ToDoItem on the web page
  */
 function displayToDoItem(item: ToDoItem): void {
+    let displayDiv = document.getElementById("display");
+    let itemDiv = document.createElement("div");
 
+    let itemTitle = document.createElement("h2");
+    itemTitle.innerText = item.title;
+
+    let itemDate = document.createElement("p");
+    itemDate.innerText = item.dueDate.toDateString();
+    if (item.isCompleted){
+        itemDiv.innerText = "Completed";
+    }
+    else{
+        itemDiv.innerText = "Not Complete";
+    }
+    displayDiv.appendChild(itemDiv);
+    itemDiv.appendChild(itemTitle);
+    itemDiv.appendChild(itemDate);
 }

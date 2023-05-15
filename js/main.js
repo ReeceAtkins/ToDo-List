@@ -9,15 +9,11 @@ window.onload = function () {
 function main() {
     if (isValid()) {
         var item = getToDoItem();
+        displayToDoItem(item);
     }
 }
 function isValid() {
-    var valid = true;
-    if (!isNaN(this.title)) {
-        valid = false;
-    }
-    if (this.dueDate)
-        return valid;
+    return true;
 }
 function getToDoItem() {
     var item = new ToDoItem();
@@ -30,4 +26,19 @@ function getToDoItem() {
     return item;
 }
 function displayToDoItem(item) {
+    var displayDiv = document.getElementById("display");
+    var itemDiv = document.createElement("div");
+    var itemTitle = document.createElement("h2");
+    itemTitle.innerText = item.title;
+    var itemDate = document.createElement("p");
+    itemDate.innerText = item.dueDate.toDateString();
+    if (item.isCompleted) {
+        itemDiv.innerText = "Completed";
+    }
+    else {
+        itemDiv.innerText = "Not Complete";
+    }
+    displayDiv.appendChild(itemDiv);
+    itemDiv.appendChild(itemTitle);
+    itemDiv.appendChild(itemDate);
 }
