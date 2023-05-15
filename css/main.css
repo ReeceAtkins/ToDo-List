@@ -7,9 +7,56 @@ body{
     box-sizing: border-box;
     margin-left: 15%;
     margin-right: 15%;
-   padding-left: 1em; 
-   padding-right: 1em;
 }
-#display{
-    
+
+label, input{
+    padding-left: 1em;
 }
+
+#add-ToDo, h1, #is-completed{
+    margin-left: 16px;
+}
+
+#displayComplete{
+    float: right;
+    background-color: lightgreen;
+    width: 50%;
+}
+
+#displayIncomplete{
+    float: left;
+    background-color: lightskyblue;
+    width: 50%;
+}
+
+.incomplete{
+    border: solid black 1px;
+    text-align: center;
+
+}
+
+.completed{
+    border: solid black 1px;
+    text-align: center;
+}
+
+#incomplete{
+    background-color: darkturquoise;
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+#complete{
+    background-color: darkturquoise;
+    float: right;
+    width: 50%;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+

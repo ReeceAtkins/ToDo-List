@@ -26,17 +26,19 @@ function getToDoItem() {
     return item;
 }
 function displayToDoItem(item) {
-    var displayDiv = document.getElementById("display");
+    var displayDiv;
     var itemDiv = document.createElement("div");
     var itemTitle = document.createElement("h2");
     itemTitle.innerText = item.title;
     var itemDate = document.createElement("p");
     itemDate.innerText = item.dueDate.toDateString();
     if (item.isCompleted) {
-        itemDiv.innerText = "Completed";
+        displayDiv = document.getElementById("displayComplete");
+        itemDiv.classList.add("completed");
     }
     else {
-        itemDiv.innerText = "Not Complete";
+        displayDiv = document.getElementById("displayIncomplete");
+        itemDiv.classList.add("incomplete");
     }
     displayDiv.appendChild(itemDiv);
     itemDiv.appendChild(itemTitle);

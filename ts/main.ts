@@ -59,7 +59,7 @@ function getToDoItem():ToDoItem{
  * @param item Display given ToDoItem on the web page
  */
 function displayToDoItem(item: ToDoItem): void {
-    let displayDiv = document.getElementById("display");
+    let displayDiv;
     let itemDiv = document.createElement("div");
 
     let itemTitle = document.createElement("h2");
@@ -67,13 +67,21 @@ function displayToDoItem(item: ToDoItem): void {
 
     let itemDate = document.createElement("p");
     itemDate.innerText = item.dueDate.toDateString();
+
     if (item.isCompleted){
-        itemDiv.innerText = "Completed";
+        displayDiv = document.getElementById("displayComplete");
+        //itemDiv.innerText = "Completed";
+        itemDiv.classList.add("completed");
     }
     else{
-        itemDiv.innerText = "Not Complete";
+        displayDiv = document.getElementById("displayIncomplete");
+        //itemDiv.innerText = "Not Complete";
+        itemDiv.classList.add("incomplete");
     }
+
     displayDiv.appendChild(itemDiv);
+    // add title
     itemDiv.appendChild(itemTitle);
+    // add date
     itemDiv.appendChild(itemDate);
 }
