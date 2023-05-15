@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do list</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
 </head>
 <body>
     <div id="main">
@@ -27,5 +28,13 @@
 
         <input type="button" value="Add ToDo Item">
     </div>
+
+    
+    <script src="https://unpkg.com/js-datepicker"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const picker = datepicker("#due-date");
+        picker.setMin(new Date()); // stop the user from being able to pick a date past today
+    </script>
 </body>
 </html>
