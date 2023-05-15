@@ -1,0 +1,11 @@
+
+body{
+    background-color: teal;
+}
+#main{
+    background-color: darkturquoise;
+    box-sizing: border-box;
+    margin-left: 15%;
+    margin-right: 15%;
+    
+}
