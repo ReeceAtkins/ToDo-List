@@ -19,25 +19,28 @@ label, input{
 
 #displayComplete{
     float: right;
-    background-color: lightgreen;
     width: 50%;
+    cursor: pointer;
 }
 
 #displayIncomplete{
     float: left;
-    background-color: lightskyblue;
     width: 50%;
+    cursor: pointer;
 }
 
 .incomplete{
     border: solid black 1px;
     text-align: center;
-
+    border-radius: 1em;
+    background-color: lightskyblue;
 }
 
 .completed{
     border: solid black 1px;
     text-align: center;
+    border-radius: 1em;
+    background-color: lightgreen;
 }
 
 #incomplete{

@@ -79,9 +79,39 @@ function displayToDoItem(item: ToDoItem): void {
         itemDiv.classList.add("incomplete");
     }
 
+    // Add onclick to itemDiv
+    itemDiv.onclick = switchClass;
+
     displayDiv.appendChild(itemDiv);
     // add title
     itemDiv.appendChild(itemTitle);
     // add date
     itemDiv.appendChild(itemDate);
+}
+
+
+
+/**
+ * Switches the class of itemDiv and switches
+ * displayDiv to correct one.
+ */
+function switchClass():void{
+    let displayDiv;
+    let itemDiv = <HTMLDivElement>this;
+    if (itemDiv.classList.contains("incomplete")){
+        itemDiv.classList.remove("incomplete");
+        itemDiv.classList.add("completed");
+        displayDiv = document.getElementById("displayComplete");
+    }
+    else if (itemDiv.classList.contains("completed")){
+        itemDiv.classList.remove("completed");
+        itemDiv.classList.add("incomplete");
+        displayDiv = document.getElementById("displayIncomplete");
+    }
+
+    // remove div
+    itemDiv.remove();
+
+    // append
+    displayDiv.appendChild(itemDiv);
 }

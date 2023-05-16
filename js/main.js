@@ -40,7 +40,24 @@ function displayToDoItem(item) {
         displayDiv = document.getElementById("displayIncomplete");
         itemDiv.classList.add("incomplete");
     }
+    itemDiv.onclick = switchClass;
     displayDiv.appendChild(itemDiv);
     itemDiv.appendChild(itemTitle);
     itemDiv.appendChild(itemDate);
+}
+function switchClass() {
+    var displayDiv;
+    var itemDiv = this;
+    if (itemDiv.classList.contains("incomplete")) {
+        itemDiv.classList.remove("incomplete");
+        itemDiv.classList.add("completed");
+        displayDiv = document.getElementById("displayComplete");
+    }
+    else if (itemDiv.classList.contains("completed")) {
+        itemDiv.classList.remove("completed");
+        itemDiv.classList.add("incomplete");
+        displayDiv = document.getElementById("displayIncomplete");
+    }
+    itemDiv.remove();
+    displayDiv.appendChild(itemDiv);
 }
