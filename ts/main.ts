@@ -23,13 +23,15 @@ function main():void{
  * Check form data is valid
  */
 function isValid(): boolean {
-    //let valid = true;
-    //if (!isNaN(this.title)){
-    //    valid = false;
-    //}
-    //if (this.dueDate)
+    let valid = true;
+    // Validate title
+    if (!isNaN(this.title.value) || this.title.value == ""){
+        valid = false;
+        let titleSpan = <HTMLElement>document.getElementById("titleSpan");
+        titleSpan.innerText = "Enter a title (without numbers)"
+    }
 
-    return true;
+    return valid;
 }
 
 /**

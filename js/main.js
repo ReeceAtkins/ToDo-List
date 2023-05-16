@@ -13,7 +13,13 @@ function main() {
     }
 }
 function isValid() {
-    return true;
+    var valid = true;
+    if (!isNaN(this.title.value) || this.title.value == "") {
+        valid = false;
+        var titleSpan = document.getElementById("titleSpan");
+        titleSpan.innerText = "Enter a title (without numbers)";
+    }
+    return valid;
 }
 function getToDoItem() {
     var item = new ToDoItem();

@@ -34,6 +34,7 @@ label, input{
     text-align: center;
     border-radius: 1em;
     background-color: lightskyblue;
+    margin-bottom: .25em;
 }
 
 .completed{
@@ -41,6 +42,7 @@ label, input{
     text-align: center;
     border-radius: 1em;
     background-color: lightgreen;
+    margin-bottom: .25em;
 }
 
 #incomplete{
