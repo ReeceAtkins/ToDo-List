@@ -5,16 +5,22 @@ var ToDoItem = (function () {
 }());
 window.onload = function () {
     document.getElementById("add-ToDo").onclick = main;
+    loadSavedItem();
 };
+function loadSavedItem() {
+    var item = getToDo();
+    displayToDoItem(item);
+}
 function main() {
     if (isValid()) {
         var item = getToDoItem();
         displayToDoItem(item);
+        saveToDo(item);
     }
 }
 function isValid() {
     var valid = true;
-    if (!isNaN(this.title.value) || this.title.value == "") {
+    if (this.title.value == "") {
         valid = false;
         var titleSpan = document.getElementById("titleSpan");
         titleSpan.innerText = "Enter a title (without numbers)";
@@ -37,7 +43,8 @@ function displayToDoItem(item) {
     var itemTitle = document.createElement("h2");
     itemTitle.innerText = item.title;
     var itemDate = document.createElement("p");
-    itemDate.innerText = item.dueDate.toDateString();
+    var dueDate = new Date(item.dueDate.toString());
+    itemDate.innerText = dueDate.toDateString();
     if (item.isCompleted) {
         displayDiv = document.getElementById("displayComplete");
         itemDiv.classList.add("completed");
@@ -50,6 +57,16 @@ function displayToDoItem(item) {
     displayDiv.appendChild(itemDiv);
     itemDiv.appendChild(itemTitle);
     itemDiv.appendChild(itemDate);
+}
+function updateToDo(item) {
+    if (item.isCompleted == true) {
+        item.isCompleted = false;
+    }
+    else {
+        item.isCompleted = true;
+    }
+    localStorage.removeItem(todoKey);
+    saveToDo(item);
 }
 function switchClass() {
     var displayDiv;
@@ -66,4 +83,14 @@ function switchClass() {
     }
     itemDiv.remove();
     displayDiv.appendChild(itemDiv);
+}
+function saveToDo(item) {
+    var itemString = JSON.stringify(item);
+    localStorage.setItem(todoKey, itemString);
+}
+var todoKey = "todo";
+function getToDo() {
+    var itemString = localStorage.getItem(todoKey);
+    var item = JSON.parse(itemString);
+    return item;
 }

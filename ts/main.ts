@@ -10,12 +10,21 @@ class ToDoItem {
 }
 window.onload = function () {
     document.getElementById("add-ToDo").onclick = main;
+
+    // Load saved item
+    loadSavedItem();
+}
+
+function loadSavedItem(){
+    let item = getToDo(); // read from local storage
+    displayToDoItem(item);
 }
 
 function main():void{
     if (isValid()){
         let item = getToDoItem();
         displayToDoItem(item);
+        saveToDo(item);
     }
 }
 
@@ -25,7 +34,7 @@ function main():void{
 function isValid(): boolean {
     let valid = true;
     // Validate title
-    if (!isNaN(this.title.value) || this.title.value == ""){
+    if (this.title.value == ""){
         valid = false;
         let titleSpan = <HTMLElement>document.getElementById("titleSpan");
         titleSpan.innerText = "Enter a title (without numbers)"
@@ -68,7 +77,9 @@ function displayToDoItem(item: ToDoItem): void {
     itemTitle.innerText = item.title;
 
     let itemDate = document.createElement("p");
-    itemDate.innerText = item.dueDate.toDateString();
+    //itemDate.innerText = item.dueDate.toDateString();
+    let dueDate = new Date(item.dueDate.toString());
+    itemDate.innerText = dueDate.toDateString();
 
     if (item.isCompleted){
         displayDiv = document.getElementById("displayComplete");
@@ -91,6 +102,18 @@ function displayToDoItem(item: ToDoItem): void {
     itemDiv.appendChild(itemDate);
 }
 
+function updateToDo(item: ToDoItem):void{
+    //let itemString = JSON.stringify(item);
+    if (item.isCompleted == true){
+        item.isCompleted = false;
+    }
+    else{
+        item.isCompleted = true;
+    }
+    localStorage.removeItem(todoKey);
+    saveToDo(item);
+}
+
 
 
 /**
@@ -104,6 +127,7 @@ function switchClass():void{
         itemDiv.classList.remove("incomplete");
         itemDiv.classList.add("completed");
         displayDiv = document.getElementById("displayComplete");
+        
     }
     else if (itemDiv.classList.contains("completed")){
         itemDiv.classList.remove("completed");
@@ -116,4 +140,26 @@ function switchClass():void{
 
     // append
     displayDiv.appendChild(itemDiv);
+}
+
+// Store ToDoItem in web storage
+
+function saveToDo(item:ToDoItem):void{
+    // Convert ToDoItem into Json string
+    let itemString = JSON.stringify(item);
+
+    // save string
+    localStorage.setItem(todoKey, itemString);
+}
+
+const todoKey = "todo";
+
+/**
+ * Get stored ToDo item or return null if
+ * none is found
+ */
+function getToDo():ToDoItem{
+    let itemString = localStorage.getItem(todoKey);
+    let item = JSON.parse(itemString);
+    return item
 }
