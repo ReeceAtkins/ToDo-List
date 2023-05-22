@@ -5,11 +5,14 @@ var ToDoItem = (function () {
 }());
 window.onload = function () {
     document.getElementById("add-ToDo").onclick = main;
-    loadSavedItem();
+    loadSavedItems();
 };
-function loadSavedItem() {
-    var item = getToDo();
-    displayToDoItem(item);
+function loadSavedItems() {
+    var itemArray = getToDoItems();
+    for (var i = 0; i < itemArray.length; i++) {
+        var currItem = itemArray[i];
+        displayToDoItem(currItem);
+    }
 }
 function main() {
     if (isValid()) {
@@ -53,7 +56,7 @@ function displayToDoItem(item) {
         displayDiv = document.getElementById("displayIncomplete");
         itemDiv.classList.add("incomplete");
     }
-    itemDiv.onclick = switchClass;
+    itemDiv.onclick = toggleClass;
     displayDiv.appendChild(itemDiv);
     itemDiv.appendChild(itemTitle);
     itemDiv.appendChild(itemDate);
@@ -68,7 +71,7 @@ function updateToDo(item) {
     localStorage.removeItem(todoKey);
     saveToDo(item);
 }
-function switchClass() {
+function toggleClass() {
     var displayDiv;
     var itemDiv = this;
     if (itemDiv.classList.contains("incomplete")) {
@@ -85,11 +88,16 @@ function switchClass() {
     displayDiv.appendChild(itemDiv);
 }
 function saveToDo(item) {
-    var itemString = JSON.stringify(item);
-    localStorage.setItem(todoKey, itemString);
+    var currItems = getToDoItems();
+    if (currItems == null) {
+        currItems = new Array();
+    }
+    currItems.push(item);
+    var currItemsString = JSON.stringify(currItems);
+    localStorage.setItem(todoKey, currItemsString);
 }
 var todoKey = "todo";
-function getToDo() {
+function getToDoItems() {
     var itemString = localStorage.getItem(todoKey);
     var item = JSON.parse(itemString);
     return item;

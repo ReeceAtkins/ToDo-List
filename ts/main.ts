@@ -12,12 +12,15 @@ window.onload = function () {
     document.getElementById("add-ToDo").onclick = main;
 
     // Load saved item
-    loadSavedItem();
+    loadSavedItems();
 }
 
-function loadSavedItem(){
-    let item = getToDo(); // read from local storage
-    displayToDoItem(item);
+function loadSavedItems(){
+    let itemArray = getToDoItems(); // read from local storage
+    for(let i = 0; i < itemArray.length; i++){
+        let currItem = itemArray[i]
+        displayToDoItem(currItem);
+    }
 }
 
 function main():void{
@@ -83,17 +86,15 @@ function displayToDoItem(item: ToDoItem): void {
 
     if (item.isCompleted){
         displayDiv = document.getElementById("displayComplete");
-        //itemDiv.innerText = "Completed";
         itemDiv.classList.add("completed");
     }
     else{
         displayDiv = document.getElementById("displayIncomplete");
-        //itemDiv.innerText = "Not Complete";
         itemDiv.classList.add("incomplete");
     }
 
     // Add onclick to itemDiv
-    itemDiv.onclick = switchClass;
+    itemDiv.onclick = toggleClass;
 
     displayDiv.appendChild(itemDiv);
     // add title
@@ -120,7 +121,7 @@ function updateToDo(item: ToDoItem):void{
  * Switches the class of itemDiv and switches
  * displayDiv to correct one.
  */
-function switchClass():void{
+function toggleClass():void{
     let displayDiv;
     let itemDiv = <HTMLDivElement>this;
     if (itemDiv.classList.contains("incomplete")){
@@ -143,23 +144,24 @@ function switchClass():void{
 }
 
 // Store ToDoItem in web storage
-
 function saveToDo(item:ToDoItem):void{
-    // Convert ToDoItem into Json string
-    let itemString = JSON.stringify(item);
+    let currItems = getToDoItems();
+    if(currItems == null){ // No items found
+        currItems = new Array();
+    }
+    currItems.push(item); // Add the new item to the curr item list
 
-    // save string
-    localStorage.setItem(todoKey, itemString);
+    let currItemsString = JSON.stringify(currItems);
+    localStorage.setItem(todoKey, currItemsString);
 }
-
 const todoKey = "todo";
 
 /**
  * Get stored ToDo item or return null if
- * none is found
+ * none are found
  */
-function getToDo():ToDoItem{
+function getToDoItems():ToDoItem[]{
     let itemString = localStorage.getItem(todoKey);
-    let item = JSON.parse(itemString);
-    return item
+    let item:ToDoItem[] = JSON.parse(itemString);
+    return item;
 }
